@@ -4,6 +4,14 @@
 
 ## TODO ##
 
+<!-- TODO: pull some stuff in the payload stuff to seperate projects
+and have a script that pulls everything together always downloading
+the latest version.-->
+
+<!-- TODO: look into sub repositories with git -->
+
+* [ ] UV4L install 
+  * buster not supported yet, so use strech
 * [x] network connection (eth over usb)
 * [x] auto-setup and install
 * [ ] Time sync (NTP)
@@ -22,6 +30,14 @@
   * [ ] HTML help page (from this doc)
   * [ ] CGI-BIN
 * [ ] cron job set up
+* [ ] I am going to need a tmp file that can be locked by whatever
+script is using the camera on the DEEPi OS. The script can be read to
+get the status, but if it is locked, the another script should raise
+an exception instead of trying to run. Camera status should also
+report any cronjobs. Kills should be hard or soft
+* [ ] check out the apps that are 3rd party software
+      https://elinux.org/Rpi_Camera_Module#3rd_party_software
+
 
 ## Overview ##
 
