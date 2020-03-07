@@ -1,0 +1,129 @@
+# raspistill specific parameter commands
+
+#quality				# Set jpeg quality <0 to 100>
+#latest		   # Link latest complete image to filename <filename>
+#timeout	# Time (in ms) before takes picture and shuts down (if not specified, set to 5s)
+#thumb	# Set thumbnail parameters (x:y:quality) or none
+#demo # Run a demo mode (cycle through range of camera options, no capture)
+#encoding	# Encoding to use for output file (jpg, bmp, gif, png)
+#exif   # EXIF tag to apply to captures (format as 'key=value') or none
+#timelapse # Timelapse mode. Takes a picture every <t>ms. %d == frame number (Try: -o img_%04d.jpg)
+#fullpreview # Run the preview using the still capture resolution (may reduce preview fps)
+#keypress    # Wait between captures for a ENTER, X then ENTER to exit
+#signal # Wait between captures for a SIGUSR1 or SIGUSR2 from another process
+#gl   # Draw preview to texture instead of using video render component
+#glcapture    # Capture the GL frame-buffer instead of the camera image
+#burst	     # Enable 'burst capture mode'
+#datetime # Replace output pattern (%d) with DateTime (MonthDayHourMinSec)
+#timestamp # Replace output pattern (%d) with unix timestamp (seconds since 1970)
+#framestart	       # Starting frame number in output pattern(%d)
+#restart		       # JPEG Restart interval (default of 0 for none)
+
+# raspivid specific parameter commands
+
+#bitrate	# Set bitrate. Use bits per second (e.g. 10MBits/s would be -b 10000000)
+#timeout	# Time (in ms) to capture for. If not specified, set to 5s. Zero to disable
+#demo # Run a demo mode (cycle through range of camera options, no capture)
+#framerate		     # Specify the frames per second to record
+#penc # Display preview image *after* encoding (shows compression artifacts)
+#intra # Specify the intra refresh period (key frame rate/GoP size). Zero to produce an initial I-frame and then just P-frames.
+#profile			    # Specify H264 profile to use for encoding
+#timed # Cycle between capture and pause. -cycle on,off where on is record time and off is pause time in ms
+#signal	    # Cycle between capture and pause on Signal
+#keypress    # Cycle between capture and pause on ENTER
+#initial	    # Initial state. Use 'record' or 'pause'. Default 'record'
+#qp  # Quantisation parameter. Use approximately 10-40. Default 0 (off)
+#inline			  # Insert inline headers (SPS, PPS) to stream
+#segment	# Segment output file in to multiple files at specified interval <ms>
+#wrap # In segment mode, wrap any numbered filename back to 1 when reach number
+#start	   # In segment mode, start with specified segment number
+#split	   # In wait mode, create new output file for each start event
+#circular # Run encoded data through circular buffer until triggered then save
+#vectors	 # Output filename <filename> for inline motion vectors
+#irefresh # Set intra refresh type
+#flush	 # Flush buffers in order to decrease latency
+#save-pts # Save Timestamps to file for mkvmerge
+#codec	 # Specify the codec to use - H264 (default) or MJPEG
+#level	 # Specify H264 level to use for encoding
+#raw	 # Output filename <filename> for raw video
+#raw-format	 # Specify output format for raw video. Default is yuv
+#listen		 # Listen on a TCP socket
+#spstimings	 # Add in h.264 sps timings
+#slices		 # Horizontal slices per frame. Default 1 (off)
+
+# GL parameter commands
+
+#glscene		 # GL scene square,teapot,mirror,yuv,sobel,vcsm_square
+#glwin		 # GL window settings <'x,y,w,h'>
+
+# Common Settings commands
+
+#help				# This help information
+#width				# Set image width <size>
+#height				# Set image height <size>
+#output # Output filename <filename> (to write to stdout, use '-o -'). If not specified, no file is saved
+#verbose			       # Output verbose information during run
+#camselect		       # Select camera <number>. Default 0
+#mode   # Force sensor mode. 0=auto. See docs for other modes available
+#gpsdexif # Apply real-time GPS information to output (e.g. EXIF in JPG, annotation in video (requires libgps.so.22)
+
+# Preview parameter commands
+
+#preview				# Preview window settings <'x,y,w,h'>
+#fullscreen			# Fullscreen preview mode
+#opacity				# Preview window opacity (0-255)
+#nopreview			# Do not display a preview window
+#dispnum	# Display on which to display the preview window (dispmanx/tvservice numbering)
+
+# Image parameter commands
+
+#sharpness		     # Set image sharpness (-100 to 100)
+#contrast		     # Set image contrast (-100 to 100)
+#brightness		     # Set image brightness (0 to 100)
+#saturation		     # Set image saturation (-100 to 100)
+#ISO			     # Set capture ISO
+#vstab			     # Turn on video stabilisation
+#ev			     # Set EV compensation - steps of 1/6 stop
+#exposure		     # Set exposure mode (see Notes)
+#flicker			     # Set flicker avoid mode (see Notes)
+#awb			     # Set AWB mode (see Notes)
+#imxfx			     # Set image effect (see Notes)
+#colfx			     # Set colour effect (U:V)
+#metering		     # Set metering mode (see Notes)
+#rotation		     # Set image rotation (0-359)
+#hflip			     # Set horizontal flip
+#vflip			     # Set vertical flip
+#roi # Set region of interest (x,y,w,d as normalised coordinates [0.0-1.0])
+#shutter	    # Set shutter speed in microseconds
+#awbgains    # Set AWB gains - AWB mode must be off
+#drc	    # Set DRC Level (see Notes)
+#stats	    # Force recomputation of statistics on stills capture pass
+#annotate    # Enable/Set annotate flags or text
+#stereo	    # Select stereoscopic mode
+#decimate    # Half width/height of stereo image
+#3dswap	    # Swap camera order for stereoscopic
+#annotateex # Set extra annotation parameters (text size, text colour(hex YUV), bg colour(hex YUV), justify, x, y)
+#analoggain # Set the analog gain (floating point)
+#digitalgain		# Set the digital gain (floating point)
+#settings		# Retrieve camera settings and write to stdout
+
+
+# Notes
+
+# Exposure mode options :
+# off,auto,night,nightpreview,backlight,spotlight,sports,snow,beach,verylong,fixedfps,antishake,fireworks
+
+# Flicker avoid mode options :
+# off,auto,50hz,60hz
+
+# AWB mode options :
+# off,auto,sun,cloud,shade,tungsten,fluorescent,incandescent,flash,horizon,greyworld
+
+# Image Effect mode options :
+# none,negative,solarise,sketch,denoise,emboss,oilpaint,hatch,gpen,pastel,watercolour,film,blur,saturation,colourswap,washedout,posterise,colourpoint,colourbalance,cartoon
+
+# Metering Mode options :
+# average,spot,backlit,matrix
+
+# Dynamic Range Compression (DRC) options :
+# off,low,med,high

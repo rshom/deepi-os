@@ -128,7 +128,7 @@ os_config() {
     serial=$(grep ^Serial /proc/cpuinfo | sed -E 's/^.*: .{10}//');
     # if new_hostname_tag not set use serial number
     # TODO: include an option to completely change the hostname
-    [[ $new_hostname_tag ]] && hname="deepi-$new_hostname_tag" || hname="deepi";
+    [[ $new_hostname ]] && hname="$new_hostname" || hname="deepi";
     log -n "Set hostname to $hname: "
     raspi-config nonint do_hostname "$hname" && log OK || log FAILED;
 

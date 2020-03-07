@@ -1,14 +1,25 @@
 # DEEPi Operating System #
-
 > boot files for auto setting up a DEEPi
 
 ## TODO ##
+
+<!-- TODO: this needs a contents file -->
 
 <!-- TODO: pull some stuff in the payload stuff to seperate projects
 and have a script that pulls everything together always downloading
 the latest version.-->
 
 <!-- TODO: look into sub repositories with git -->
+
+
+<!-- TODO: auto-installed
+https://github.com/silvanmelchior/RPi_Cam_Web_Interface --> 
+
+<!--but change a few settings, like save point, ftp, default
+configs. Nice if i could make my changes while still being able to
+download the latest version and auto install from the git server-->
+
+<!-- TODO: need a way to search for enabled DEEPis -->
 
 * [ ] UV4L install 
   * buster not supported yet, so use strech
@@ -69,10 +80,12 @@ the payload.
   4. Modify one-time-script.conf as desired
   5. Plug SD into PiZero and allow to run. Pi will reboot a few times
      before finishing. (for this to work an internet connection must
-     open either through wifi or through usb over ethernet.)
+     open either through wifi or through usb over ethernet.) **This
+     process will take a very long time** <!-- ???: interrupting it
+     may be very problematic -->
   6. Check logs
 
-## Boot files ##
+### Boot files ###
 
 After flashing a raspian image to an SD, it can be mounted on any
 computer, but only the `boot/` partition will come up. All of the
@@ -90,7 +103,7 @@ replacing previous contents where necessary.
   * **payload/** contains a partial linux file system. All files will
     be moved to the root file system replacing previous contents.
 
-## One time script ##
+### One time script ###
 
 The one time script runs on first boot. It is controlled by the
 configuration file `boot/one-time-script.conf`. See the comments for
@@ -107,7 +120,7 @@ using ethernet over USB with internet sharing. Some college campuses
 do not allow internet sharing and make WiFi connections
 difficult. Therefore, using a hotspot is often the best option.
 
-## Payload ##
+### Payload ###
 
 The payload contains a partial linux file system which gets copied
 over to the root file system as part of the install. This can include
@@ -133,7 +146,7 @@ More information about the linux Filesystem Hierarchy Standard at
 [https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 "https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard").
 
-## Ethernet gadget ##
+### Ethernet gadget ###
 
 Setting up the pi as an ethernet gadget for ethernet over usb.
 
@@ -146,8 +159,31 @@ robust way to get eth or usb support-->
 
 <!-- TODO: make a seperate tutorial explaining how to do this -->
 
+<!-- ???: static IP -->
 
-## Package installation ##
+#### USB Tether ####
+
+RPis and paticularly RPiZs are very sensitive to power supply
+changes. This is particularly true when being used as a USB tethered
+device. A cable that is capable of powering the RPiZ may not be
+capable of providing USB over ethernet as well. A higher quality cable
+will solve this issue.
+
+More problems arise when attempting to tether a RPiZ to an RPi3/4. The
+power creates even more issues. To start, the RPi3/4 must have a power
+supply large enough to power itself **and** the RPiZs
+attached. Additionaly, the cables must be of even higher quality. **A
+cable which worked to tether to a computer may not work to tether to a
+RPi3/4**. To see if this issue is happening, try using the `dmesg`
+command to see what is happening at the kernel level when the tether is
+plugged into a device.
+
+<!-- TODO: find out what makes a connector good and does it need to be
+not a fast charge cable. Is there some reason that those do not work. -->
+
+
+
+### Package installation ###
 
 <!-- TODO: install packages without internet (can I zip them)-->
 
