@@ -13,7 +13,8 @@ the latest version.-->
 
 
 <!-- TODO: auto-installed
-https://github.com/silvanmelchior/RPi_Cam_Web_Interface --> 
+https://github.com/silvanmelchior/RPi_Cam_Web_Interface 
+--> 
 
 <!--but change a few settings, like save point, ftp, default
 configs. Nice if i could make my changes while still being able to
@@ -77,12 +78,19 @@ the payload.
      as boot)
   3. Copy all files from this project into the boot partition
      overwriting as necessary. `cp -rf deepi-os/boot/* /Volumes/boot/`
-  4. Modify one-time-script.conf as desired
-  5. Plug SD into PiZero and allow to run. Pi will reboot a few times
+  4. Modify `one-time-script.conf` as desired
+  5. Modify `cmdline.txt` to include `modules-load=dwc2,g_ether
+     g_ether.host_addr=00:22:82:ff:ff:01
+     g_ether.dev_addr=00:22:82:ff:ff:11 init=/bin/bash -c "mount -t
+     proc proc /proc; mount -t sysfs sys /sys; mount /boot; source
+     /boot/unattended"` after `rootwait`. The entire file should be
+     one one line.
+  6. Plug SD into PiZero and allow to run. Pi will reboot a few times
      before finishing. (for this to work an internet connection must
      open either through wifi or through usb over ethernet.) **This
-     process will take a very long time** <!-- ???: interrupting it
-     may be very problematic -->
+     process will take a very long time** and interrupting it may be
+     ruin the process. The RPi should reboot three times before
+     complete.
   6. Check logs
 
 ### Boot files ###
@@ -94,14 +102,19 @@ replacing previous contents where necessary.
 
   * **config.txt** is a standard configuration file for raspian. Modified to
     enable ethernet gadget and camera on boot.
-  * **cmdline.txt** is a standard boot command for raspian. This is the
-    first command run by the system on every boot. 
+  * **cmdline.txt** is a standard boot command for raspian. This is
+    the first command run by the system on every boot. **This file is
+    very important.**
   * **unattended** mounts the files and controls the basic procedure for 
     the install.
   * **one-time-script.conf** contains configuration for the install
     script which controls the actual install.
   * **payload/** contains a partial linux file system. All files will
     be moved to the root file system replacing previous contents.
+
+### cmdline.txt ###
+
+Part of this is the command that is 
 
 ### One time script ###
 
@@ -111,14 +124,14 @@ more information. The script itself is at
 `boot/payload/usr/local/bin/one-time-script.sh` and
 `boot/payload/usr/local/bin/packages-script.sh`. For most purposes, the actual script should not be modified.
 
-<!-- TODO: modify the script to allow the user to set the hostname-->
-
 The config file also includes a list of packages to install, which are
 installed by the packages script. An internet connection is needed to
 install the scripts. This works either over WiFi, via a hot-spot, or
 using ethernet over USB with internet sharing. Some college campuses
 do not allow internet sharing and make WiFi connections
 difficult. Therefore, using a hotspot is often the best option.
+
+<!-- TODO: for some reason, my package-install script did not work -->
 
 ### Payload ###
 
