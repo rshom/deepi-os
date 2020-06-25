@@ -61,12 +61,20 @@ the payload.
 
 ## Install ##
 
+
+
   1. Flash a raspian lite SD card
   2. Mount the card on a computer (the boot partition should show up
      as boot)
   3. Copy all files from this project into the boot partition, with
      the exception of `cmdline.txt` overwriting as necessary. `cp -rf
      deepi-os/boot/* /Volumes/boot/`
+
+	 > **WARNING**: do not overwrite `cmdline.txt` entirely. The
+	 > portions saying `conlole=serial0,??????` and
+	 > `root=PARTUUID=????????-??` are unique to the Raspbian build
+	 > and the RPi will not complete its boot without correct values.
+
   4. Modify `one-time-script.conf` as desired
   5. Modify `cmdline.txt` to include `modules-load=dwc2,g_ether
      g_ether.host_addr=00:22:82:ff:ff:01
