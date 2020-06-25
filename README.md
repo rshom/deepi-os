@@ -1,5 +1,6 @@
 # DEEPi Operating System #
-> boot files for auto setting up a DEEPi
+> Boot files for auto setting up a DEEPi and allowing control via the
+> other DEEPi projects.
 
 ## TODO ##
 
@@ -11,7 +12,6 @@ the latest version.-->
 
 <!-- TODO: look into sub repositories with git -->
 
-
 <!-- TODO: auto-installed
 https://github.com/silvanmelchior/RPi_Cam_Web_Interface 
 --> 
@@ -22,12 +22,7 @@ download the latest version and auto install from the git server-->
 
 <!-- TODO: need a way to search for enabled DEEPis -->
 
-* [ ] UV4L install 
-  * buster not supported yet, so use strech
-* [x] network connection (eth over usb)
-* [x] auto-setup and install
 * [ ] Time sync (NTP)
-* [x] FTP server (proftpd)
 * [ ] deepi libraries
 * [ ] deepi scripts
   * [ ] bash
@@ -37,19 +32,12 @@ download the latest version and auto install from the git server-->
   * [ ] start up behaviour 
   * [ ] timed behaviour (services)
 * [ ] HTTP server (lighttpd) 
-  * [x] install
   * [ ] HTML control page
   * [ ] HTML help page (from this doc)
   * [ ] CGI-BIN
 * [ ] cron job set up
-* [ ] I am going to need a tmp file that can be locked by whatever
-script is using the camera on the DEEPi OS. The script can be read to
-get the status, but if it is locked, the another script should raise
-an exception instead of trying to run. Camera status should also
-report any cronjobs. Kills should be hard or soft
 * [ ] check out the apps that are 3rd party software
-      https://elinux.org/Rpi_Camera_Module#3rd_party_software
-
+  https://elinux.org/Rpi_Camera_Module#3rd_party_software
 
 ## Overview ##
 
@@ -76,8 +64,9 @@ the payload.
   1. Flash a raspian lite SD card
   2. Mount the card on a computer (the boot partition should show up
      as boot)
-  3. Copy all files from this project into the boot partition
-     overwriting as necessary. `cp -rf deepi-os/boot/* /Volumes/boot/`
+  3. Copy all files from this project into the boot partition, with
+     the exception of `cmdline.txt` overwriting as necessary. `cp -rf
+     deepi-os/boot/* /Volumes/boot/`
   4. Modify `one-time-script.conf` as desired
   5. Modify `cmdline.txt` to include `modules-load=dwc2,g_ether
      g_ether.host_addr=00:22:82:ff:ff:01
@@ -114,7 +103,7 @@ replacing previous contents where necessary.
 
 ### cmdline.txt ###
 
-Part of this is the command that is 
+Part of this is the command that is run at every start up.
 
 ### One time script ###
 
@@ -122,7 +111,8 @@ The one time script runs on first boot. It is controlled by the
 configuration file `boot/one-time-script.conf`. See the comments for
 more information. The script itself is at
 `boot/payload/usr/local/bin/one-time-script.sh` and
-`boot/payload/usr/local/bin/packages-script.sh`. For most purposes, the actual script should not be modified.
+`boot/payload/usr/local/bin/packages-script.sh`. For most purposes,
+the actual script should not be modified.
 
 The config file also includes a list of packages to install, which are
 installed by the packages script. An internet connection is needed to
@@ -130,8 +120,6 @@ install the scripts. This works either over WiFi, via a hot-spot, or
 using ethernet over USB with internet sharing. Some college campuses
 do not allow internet sharing and make WiFi connections
 difficult. Therefore, using a hotspot is often the best option.
-
-<!-- TODO: for some reason, my package-install script did not work -->
 
 ### Payload ###
 
@@ -194,13 +182,13 @@ plugged into a device.
 <!-- TODO: find out what makes a connector good and does it need to be
 not a fast charge cable. Is there some reason that those do not work. -->
 
-
-
 ### Package installation ###
 
 <!-- TODO: install packages without internet (can I zip them)-->
 
-I added some auto-install packages to the conf file. However, these files will not install without an internet connection, so they must be installed manually.
+I added some auto-install packages to the conf file. However, these
+files will not install without an internet connection, so they must be
+installed manually.
 
   * **ntp** <!-- ???: is this installed now -->
   * **python3**
