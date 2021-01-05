@@ -22,6 +22,8 @@ download the latest version and auto install from the git server-->
 
 <!-- TODO: need a way to search for enabled DEEPis -->
 
+<!-- TOOD include network set up for usb hot plug -->
+
 * [ ] Time sync (NTP)
 * [ ] deepi libraries
 * [ ] deepi scripts
@@ -42,7 +44,7 @@ download the latest version and auto install from the git server-->
 ## Overview ##
 
 The project provides all of the base software requirements to set up a
-DEEPi camera system.
+DEEPi camera system.[^1] <!-- TOOD: link to the deepi project -->
 
 This project is based on
 [pi-boot-script](https://gitlab.com/JimDanner/pi-boot-script/tree/master). Read
@@ -61,8 +63,6 @@ the payload.
 
 ## Install ##
 
-
-
   1. Flash a raspian lite SD card
   2. Mount the card on a computer (the boot partition should show up
      as boot)
@@ -75,7 +75,7 @@ the payload.
 	 > `root=PARTUUID=????????-??` are unique to the Raspbian build
 	 > and the RPi will not complete its boot without correct values.
 
-  4. Modify `one-time-script.conf` as desired
+  4. Modify `one-time-script.conf` as desired.
   5. Modify `cmdline.txt` to include `modules-load=dwc2,g_ether
      g_ether.host_addr=00:22:82:ff:ff:01
      g_ether.dev_addr=00:22:82:ff:ff:11 init=/bin/bash -c "mount -t
@@ -364,3 +364,7 @@ have the one-time-script install it. -->
 <!--- If you're not sure which open license to use see https://choosealicense.com/--->
 
 This project uses the following license: MIT.
+
+[^1]: This is a software based project, and does not require that a
+    DEEPi case be used on the camera system being created even though
+    it was specifically made with that use case in mind.
