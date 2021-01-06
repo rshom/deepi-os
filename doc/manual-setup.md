@@ -38,7 +38,7 @@
    phone for initial set up which matches the network settings we use
    on the router we use in the field. You can add additional networks
    later. Using a phone hotspot initially, means that network is
-   always available.
+   always available as a back up.
    
 ```.bash
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -55,15 +55,15 @@ network={
 
 ## Initial boot ##
 
-1. Plug the SD Card in and power up the RPiZ. Give it around 90 seconds for
+1. Plug the SD Card in and power up the RPi. Give it around 90 seconds for
    the first boot as the system needs to set itself up.
    
-2. SSH into the RPiZ using username `pi` and password `raspberry` for
+2. SSH into the RPi using username `pi` and password `raspberry` for
    the hostname `raspberrypi.local`. 
    
    The hostname only works with OSX and linux. For Windows, you will
    need to set up a static IP or have a way of knowing the IP of the
-   newly set up RPiZ. 
+   newly set up RPi. 
    
    <!-- TODO: explain how to do this with windows... -->
 
@@ -94,7 +94,7 @@ sudo apt-get upgrade
    
 7. Reboot either through the config menu or with `sudo reboot now`.
 
-8. SSH into the RPiZ using username `pi` and password `raspberry` for
+8. SSH into the RPi using username `pi` and password `raspberry` for
    the hostname `deepi.local`, or whatever hostname you chose.
 
 ## Setup supporting software ##
@@ -108,7 +108,7 @@ echo "alias python='python3'" >> .bash_aliases
 source .bashrc
 ```
 
-2. Install modules.
+2. Install basic modules.
 
 ```.bash
 sudo apt-get install python3-pip
@@ -116,11 +116,70 @@ python -m pip install picamera
 
 ```
 
+### FTP Interfaces ###
+
+FTP is the simplest way to move files on and off of the RPi. ProFTP is
+a simple choice.
+
+```
+sudo apt-get install proftpd
+sudo /etc/init.d/proftpd restart
+```
+
+You can now access files on the RPi using an FTP client such as
+[FileZilla](https://filezilla-project.org/).
+
+
+### HTTP Interface ###
+
+HTTP is an effective means of control and information exchange. 
+
+```
+sudo apt-get install lighttpd
+sudo service lighttpd force-reload
+```
+
+You can now access the webserver at
+[http://deepi.local](http://deepi.local) assuming the hostname is
+deepi. The placeholder page contains more instructions on making
+modifications to the webserver.
+
+Set up user directories. <!-- ???: not sure if this is useful or not -->
+
+```
+sudo lighttpd-enable-mod userdir
+sudo service lighttpd force-reload
+mkdir /home/pi/public_html
+```
+
+Files placed in the `public_html/` directory can now be accessed at
+[http://deepi.local/~pi/](http://deepi.local/~pi/).
+
+A few important directories for the lighttpd server.
+
+  * `/etc/lighttpd/` config files
+  * `/var/www/html` DocumentRoot
+  * `/usr/lib/cgi-bin` CGI scripts
+  * `var/log/lighttpd` logs
+  
+
+Enable CGI scripts.
+
+```
+sudo lighttpd-enable-mod cgi
+sudo service lighttpd force-reload
+```
+
+CGI scripts are located at `/usr/lib/cgi-bin`. Scripts must output a
+properly formated html page in order to work. Otherwise a 500 server
+error is issued.
+
 ## Setup DEEPi software ##
 
-<!-- TODO: write seperate guides for different DEEPi modes -->
+Depending on what functionality, you want the DEEPi to have, refer to the many
+subprojects for the remaining set up.
 
-
-
-
-
+  * DEEPi Bash
+  * DEEPi Python
+  * DEEPi BRUV
+  * DEEPi Cluster
