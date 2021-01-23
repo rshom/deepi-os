@@ -63,10 +63,17 @@ the payload.
 
 
 
-  1. Flash a raspian lite SD card
-  2. Mount the card on a computer (the boot partition should show up
-     as boot)
-  3. Copy all files from this project into the boot partition, with
+   1. Flash a microSD with the [Raspberry Pi OS
+	  Lite](https://www.raspberrypi.org/software/operating-systems/). This
+	  version does not include a desktop or recommended software. Be
+	  sure to use the maximum available SD card size as this will
+	  determine the how much media storage is available to the
+	  cluster. **Do not boot the RPiZ yet.**
+   
+   2. Mount the microSD card on a computer before inserting into the
+	  RPiZ, and open the `boot/` direct to modify files.
+
+   3. Copy all files from this project into the boot partition, with
      the exception of `cmdline.txt` overwriting as necessary. `cp -rf
      deepi-os/boot/* /Volumes/boot/`
 
@@ -75,20 +82,23 @@ the payload.
 	 > `root=PARTUUID=????????-??` are unique to the Raspbian build
 	 > and the RPi will not complete its boot without correct values.
 
-  4. Modify `one-time-script.conf` as desired
-  5. Modify `cmdline.txt` to include `modules-load=dwc2,g_ether
+   4. Modify `cmdline.txt` to include `modules-load=dwc2,g_ether
      g_ether.host_addr=00:22:82:ff:ff:01
      g_ether.dev_addr=00:22:82:ff:ff:11 init=/bin/bash -c "mount -t
      proc proc /proc; mount -t sysfs sys /sys; mount /boot; source
      /boot/unattended"` after `rootwait`. The entire file should be
      one one line.
-  6. Plug SD into PiZero and allow to run. Pi will reboot a few times
-     before finishing. (for this to work an internet connection must
-     open either through wifi or through usb over ethernet.) **This
-     process will take a very long time** and interrupting it may be
-     ruin the process. The RPi should reboot three times before
-     complete.
-  6. Check logs
+
+   5. Modify `one-time-script.conf` as desired
+
+   6. Plug SD into PiZero and allow to run. Pi will reboot a few times
+	  before finishing. (for this to work an internet connection must
+	  open either through wifi or through usb over ethernet.) **This
+	  process will take a very long time** and interrupting it may be
+	  ruin the process. The RPi should reboot three times before
+	  complete.
+	  
+   7. Check logs
 
 ### Boot files ###
 
