@@ -1,2 +1,0 @@
-console=serial0,115200 console=tty1 root=PARTUUID=6c586e13-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait modules-load=dwc2,g_ether g_ether.host_addr=00:22:82:ff:ff:01 g_ether.dev_addr=00:22:82:ff:ff:11 init=/bin/bash -c "mount -t proc proc /proc; mount -t sysfs sys /sys; mount /boot; source /boot/unattended"
-
