@@ -38,12 +38,13 @@ controlled through a browser on port 8080.
 
 Camera commands are located in `/usr/local/bin/`.
 
-  * [ ] more commands
-  * [ ] add error checking
-  * [ ] status command
+> TODO: add more commands. They are mostly one liners. 
 
-Commands can be scheduled using the crontab interface using the command
-`crontab -e` or `sudo crontab -e`. 
+> TODO: add error checking to commands and responses for if things 
+> are not going correctly.
+
+Commands can be scheduled using the crontab interface using the
+command `crontab -e` or `sudo crontab -e`.
   
 ### Snapshot ###
 
@@ -54,6 +55,8 @@ feed.
 
 ## Interfaces ##
 
+For all interfaces requiring authentication the username and password are
+left as the default for RPi OS, `pi` and `raspberry` respectively.
 
 ### SSH ###
 
@@ -66,8 +69,9 @@ The DEEPi runs a [proftpd]() FTP server. This allows quick transfer of
 files on and off the device. Files can be accessed using FTP clients
 such as Filezilla.
 
-  * [ ] Consider swtiching to
-        [pureftp](https://www.raspberrypi.org/documentation/remote-access/ftp.md)
+> TODO: Consider swtiching to
+> [pureftp](https://www.raspberrypi.org/documentation/remote-access/ftp.md)
+> because RPi recommends it.
 
 ### HTTP ###
 
@@ -77,7 +81,11 @@ contains useful instructions.
 
 Web server files are located at `/var/www/html/`. 
 
-  * [ ] Expand webserver information and manual
+> TODO: make a status display command and page
+
+> TODO: Expand webserver information and manual. A user should be able
+> to play around with no knowledge if given a standard DEEPi and the
+> web address.
 
 #### CGI-BIN ####
 
@@ -85,12 +93,12 @@ CGI-BIN commands can be run through the web interface. The binaries are
 located in `/usr/lib/cgi-bin/` and can be run by sending HTTP requests to
 `/cgi-bin/`.
 
-  * [ ] more commands
+> TODO: write more cgi commands
 
 ### Time Sync ###
 
 DEEPi uses `timedatectl` to synchronize with ntp servers. The configuration
 file is located at `/etc/systemd/timesyncd.conf`.
 
-  * [ ] Get time sync working. The university network may be the problem, 
-		but I cannot tell.
+> TODO: Get time sync working. The university network may be the
+> problem, but I cannot tell.
