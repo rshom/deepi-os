@@ -93,6 +93,9 @@ Web server files are located at `/var/www/html/`.
 > to play around with no knowledge if given a standard DEEPi and the
 > web address.
 
+> TODO: make webserver proxy to webrtc for the feed rather than
+> hardcoding the link
+
 #### CGI-BIN ####
 
 CGI-BIN commands can be run through the web interface. The binaries are 

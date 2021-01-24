@@ -7,7 +7,7 @@
 
 # Set up UV4L
 curl https://www.linux-projects.org/listing/uv4l_repo/lpkey.asc | sudo apt-key add -
-echo deb https://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main >> /apt/sources
+echo deb https://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main >> /apt/sources.list
 apt-get update
 apt-get install uv4l uv4l-raspicam uv4l-raspicam-extras uv4l-webrtc
 cp etc/uv4l-raspicam.conf /etc/uv4l/uv4l-raspicam.conf
