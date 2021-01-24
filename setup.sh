@@ -30,8 +30,6 @@ apt-get install proftpd-basic
 # Setup NTP
 sudo apt-get install ntp
 
-
-
 # Include executables
 # Regular executable files
 chmod +x bin/*
@@ -39,4 +37,4 @@ cp bin/* /usr/local/bin/
 
 # Common Gateway interface Executables
 chmod +x cgi-bin/*
-cp cgi-bin /usr/local/lib/cgi-bin/
+cp cgi-bin/* /usr/lib/cgi-bin/

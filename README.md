@@ -9,14 +9,20 @@ the `/boot` directory then boot. Edit `wpa_supplicant.conf` as necessary.
 
 Using `sudo raspi-config` change the following settings.
 
+  * [ ] Set hostname
   * [ ] Enable camera
   * [ ] Expand GPU memory to 256MB
   
 Download or clone this repo on the new RPi.
 
 ```
+sudo apt-get install git
+git clone https://github.com/URIL-Group/DEEPi-OS.git
+cd DEEPi-OS
 sudo sh ./setup.sh
 ```
+
+>TODO: more testing on that `setup.sh`
 
 Open a browser to http://deepi.local/
 
