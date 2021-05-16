@@ -108,11 +108,15 @@ echo "alias python='python3'" >> .bash_aliases
 source .bashrc
 ```
 
+```.bash
+cp /usr/bin/python3 /usr/bin/python
+```
+
 2. Install basic modules.
 
 ```.bash
 sudo apt-get install python3-pip
-python -m pip install picamera
+sudo python -m pip install picamera flask gnuicorn
 
 ```
 
@@ -121,7 +125,7 @@ python -m pip install picamera
 FTP is the simplest way to move files on and off of the RPi. ProFTP is
 a simple choice.
 
-```
+```.bash
 sudo apt-get install proftpd
 sudo /etc/init.d/proftpd restart
 ```
@@ -134,7 +138,7 @@ You can now access files on the RPi using an FTP client such as
 
 HTTP is an effective means of control and information exchange. 
 
-```
+```.bash
 sudo apt-get install lighttpd
 sudo service lighttpd force-reload
 ```
@@ -146,7 +150,7 @@ modifications to the webserver.
 
 Set up user directories. <!-- ???: not sure if this is useful or not -->
 
-```
+```.bash
 sudo lighttpd-enable-mod userdir
 sudo service lighttpd force-reload
 mkdir /home/pi/public_html
@@ -165,14 +169,21 @@ A few important directories for the lighttpd server.
 
 Enable CGI scripts.
 
-```
+```.bash
 sudo lighttpd-enable-mod cgi
 sudo service lighttpd force-reload
 ```
 
 CGI scripts are located at `/usr/lib/cgi-bin`. Scripts must output a
 properly formated html page in order to work. Otherwise a 500 server
-error is issued.
+error is issued. Scripts also must contain no extension and include a shebang
+line such as `#!/usr/bin/env python3` in order to run.
+
+The CGI configuration is located at
+`/etc/lighttpd/conf-enabled/10-cgi.conf`. For most purposes, it needs
+no changes.
+
+<!-- TODO: deploy a flask app to lighttpd using gunicorn -->
 
 ## Setup DEEPi software ##
 
