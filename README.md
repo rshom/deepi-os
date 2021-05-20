@@ -5,8 +5,6 @@
 Flash a new RPi OS microSD card and place the contents of `boot/` into the
 the `/boot` directory then boot. Edit `wpa_supplicant.conf` as necessary.
 
-<!-- TODO: include usb-over-ethernet instructions -->
-
 Using `sudo raspi-config` change the following settings.
 
   * [ ] Set hostname
