@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # DEEPi Operating System #
 > Boot files for auto setting up a DEEPi and allowing control via the
 > other DEEPi projects.
@@ -200,13 +199,12 @@ located in `/usr/lib/cgi-bin/` and can be run by sending HTTP requests to
 DEEPi uses `timedatectl` to synchronize with ntp servers. The configuration
 file is located at `/etc/systemd/timesyncd.conf`.
 
-<<<<<<< HEAD
 This project uses the following license: MIT.
 
 [^1]: This is a software based project, and does not require that a
     DEEPi case be used on the camera system being created even though
     it was specifically made with that use case in mind.
-=======
+
 > TODO: Get time sync working. The university network may be the
 > problem, but I cannot tell.
->>>>>>> 3b3b2e233c80190e69477424cd20698cd0a1ff86
+
