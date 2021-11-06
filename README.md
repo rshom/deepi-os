@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # DEEPi Operating System #
 > Boot files for auto setting up a DEEPi and allowing control via the
 > other DEEPi projects.
@@ -88,151 +89,124 @@ replacing previous contents where necessary.
   * **cmdline.txt** is a standard boot command for raspian. This is
     the first command run by the system on every boot. **This file is
     very important.**
+=======
+# DEEPi OS #
 
-## FTP Server ##
+## Quick Start ##
 
-Proftpd is installed in the initial package installation. It has a
-configuration file located at `/etc/proftpd/proftpd.conf`. The default
-configuration is fine, so it is not currently included in the payload.
+Flash a new RPi OS microSD card and place the contents of `boot/` into the
+the `/boot` directory then boot. Edit `wpa_supplicant.conf` as necessary.
 
-Ligttpd is autostarted on every bootup. See `/etc/init.d/lighttpd` for
-more information.
+Using `sudo raspi-config` change the following settings.
 
-<!-- TODO: make sure the ftp server restarts if it ever has an issue -->
-
-The FTP server has read access to the entire file sytem, but it only
-has write access to the home directory of the user (pi). To modify
-other files, the user must SSH into the system and use `sudo`
-privileges. Permissions could be changed, but this setup protects low
-level functionality from inexperienced users. There is no way to login
-to the FTP server as root. 
-<!-- TODO: FTP upload to WWW should be made possible -->
-
-## HTTP server ##
-
-
-Lighttpd (pronounced lighty) is installed in the initial package
-installation, and its configuration files are moved over with the
-payload.
-
-  * `/etc/lighttpd/lighttpd.conf`
-  * `/var/www/html/`
-  * `/var/www/cgi-bin/`
+  * [ ] Set hostname
+  * [ ] Enable camera
+  * [ ] Expand GPU memory to 256MB
   
-
-```sh
-# Test server with a conf file
-sudo lighttpd -D -f etc/lighttpd/lighttpd.conf
-```
-
-Ligttpd is autostarted on every bootup. See `/etc/init.d/lighttpd` for
-more information.
-
-<!-- TODO: make sure lighttpd restarts if it ever has an error -->
-
-The HTTP server allows simple requests to be sent to the system which
-can trigger complex scripts. The `lighttpd.conf` file controls what
-types of executables can be run from the `cgi-bin` directory. Pointing
-a web browser (or other HTTP GET request) to one of these scripts
-causes the server to execute that script and display the results. See
-`test.sh` and `test.py` included in the payload as examples. CGI
-scripts must be made executable (`chmod +x myscript`), must specify a
-valid interpretor, and must return a valid HTTP response (see examples).
+Download or clone this repo on the new RPi.
 
 ```
-Status: 200
-Content-Type: text/plain
-
-content
+sudo apt-get install git
+git clone https://github.com/URIL-Group/DEEPi-OS.git
+cd DEEPi-OS
+sudo sh ./setup.sh
 ```
 
-<!-- TODO: crossref properly --> The code block above shows a very
-simple valid HTTP response. Which can be printed by the CGI
-script. **The empty line before the content is important.** The
-response can also be much more complex to include entire webpages.
+>TODO: more testing on that `setup.sh`
 
-**CGI scripts should be kept as simple as possible.** Complex behavior
-should be controlled by libraries and executables.
+Open a browser to http://deepi.local/
 
-## DEEPi Software ##
+## Camera Control ##
+>>>>>>> 3b3b2e233c80190e69477424cd20698cd0a1ff86
 
-The DEEPi OS payload includes software custom made for the DEEPi. This
-software sometimes comes from independent projects and
-repositories. Therefore, more up to date versions may be available on
-the official repositories for the respective software.
+The camera is run by the UV4L driver. The driver creates a device at
+`/dev/video0` which can be accessed by different software. 
 
-### Executables ###
+The camera can also be controlled using the python `picamera` library
+or using the included `raspistill` and `raspivid` commands. The camera
+can only be accessed by one software at a time. 
 
-Custom executables are placed in `/usr/local/bin/` or
-`/usr/local/sbin/` (for sudo). The majority of any code should be held
-in the libraries. Executables should simply hold main logic for a
-given task. 
+## Live Feed ##
 
-  * [ ] take still
-  * [ ] stream live
-  * [ ] record video
-  * [ ] time lapse
+The live feed is handled the UV4L-WebRTC. It can be viewed and
+controlled through a browser on port 8080.
 
-Executables can also be placed in `/home/pi/bin/` which gives them
-fewer permission, but allows them to be uploaded by less experienced
-users. User executables can access the local libraries and call local
-executables.
+## Camera Commands ##
 
-### Libraries ###
+Camera commands are located in `/usr/local/bin/`.
 
-Custom libraries are placed in `/usr/local/lib`. The majority of the
-code should be included in such libraries which can be executed by
-binaries.
+> TODO: add more commands. They are mostly one liners. 
 
-  * [ ] python library
-  * [ ] bash library??
-  * [ ] C++ library??
+> TODO: add error checking to commands and responses for if things 
+> are not going correctly.
 
-## Task Schedule ##
+Commands can be scheduled using the crontab interface using the
+command `crontab -e` or `sudo crontab -e`.
+  
+### Snapshot ###
 
-A crontab file is included in the payload. It is located at
-`/var/spool/cron/crontabs/pi` and allows the user to set up scheduled
-tasks. Cron job are limited to every minute and cannot be called in
-smaller time units. If there is a need for smaller time units, a
-script must be used. However, that script can be called by a cron job.
+The command `snapshot` gets the latest frame from the camera and saves
+it with a timestamp to `/home/pi/pictures/`. Settings are controlled
+by `/etc/uv4l/uv4l-raspicam.conf` and match the settings from the live
+feed.
 
-The correct way to edit a crontab is to invoke `crontab -e` and in
-most cases the user should do that. However, for mass production, the
-crontab included in the payload can be edited before loading the DEEPi.
+## Interfaces ##
 
-Crontab files use a limited `PATH` variable, so it is best to just
-type out the full executable path for a command.
+For all interfaces requiring authentication the username and password are
+left as the default for RPi OS, `pi` and `raspberry` respectively.
 
-**Sample crontabs**
-<!-- TODO: make some sample crontab lines -->
-```
-@reboot CMD
-@yearly CMD
-@monthly CMD
-@daily CMD
-@hourly
-* * * * * CMD
-*/10 * * * *
-```
+### SSH ###
 
-<!-- TODO: crontabs can be installed from text file. Therefore, a
-better technique would be to drop the crontab into the boot folder and
-have the one-time-script install it. -->
+SSH is enabled on the DEEPi by default. SSH gives the user complete
+command line control including passwordless sudo privileges.
 
+### FTP ###
 
-## Contributors ##
+The DEEPi runs a [proftpd]() FTP server. This allows quick transfer of
+files on and off the device. Files can be accessed using FTP clients
+such as Filezilla.
 
-* [Russell Shomberg](https://rshom.github.io)
-* [Brennan Phillips](https://web.uri.edu/uril/)
-<!-- TODO: add contributors-->
+> TODO: Consider swtiching to
+> [pureftp](https://www.raspberrypi.org/documentation/remote-access/ftp.md)
+> because RPi recommends it.
 
-<!-- If you would like to contribute to this project, let me know. -->
+### HTTP ###
 
-## License ##
-<!--- If you're not sure which open license to use see https://choosealicense.com/--->
+The DEEPi runs a [lighttpd]() HTTP server. This allows users on the same
+network to interact with the DEEPi through the browsers. The index page 
+contains useful instructions.
 
+Web server files are located at `/var/www/html/`. 
+
+> TODO: make a status display command and page
+
+> TODO: Expand webserver information and manual. A user should be able
+> to play around with no knowledge if given a standard DEEPi and the
+> web address.
+
+> TODO: make webserver proxy to webrtc for the feed rather than
+> hardcoding the link
+
+#### CGI-BIN ####
+
+CGI-BIN commands can be run through the web interface. The binaries are 
+located in `/usr/lib/cgi-bin/` and can be run by sending HTTP requests to
+`/cgi-bin/`.
+
+> TODO: write more cgi commands
+
+### Time Sync ###
+
+DEEPi uses `timedatectl` to synchronize with ntp servers. The configuration
+file is located at `/etc/systemd/timesyncd.conf`.
+
+<<<<<<< HEAD
 This project uses the following license: MIT.
 
 [^1]: This is a software based project, and does not require that a
     DEEPi case be used on the camera system being created even though
     it was specifically made with that use case in mind.
+=======
+> TODO: Get time sync working. The university network may be the
+> problem, but I cannot tell.
+>>>>>>> 3b3b2e233c80190e69477424cd20698cd0a1ff86

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # DEEPi OS Manual #
 > Basic manual for included features in the base DEEPi OS.
 
@@ -77,3 +78,16 @@ module.
 ### rc.local ###
 
 <!-- TODO: investigate if cron is a better option for this -->
+=======
+# DEEPi Manual #
+
+## Live Feed ##
+
+## Camera Commands ##
+
+  * `snapshot`
+  * `record`
+
+## Task Scheduling ##
+
+>>>>>>> 3b3b2e233c80190e69477424cd20698cd0a1ff86
