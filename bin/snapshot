@@ -1,9 +1,0 @@
-#!/bin/bash
-# Take a picture and save with DTG.
-#
-#
-
-# TODO: the device sometimes changes making this command not valid
-
-dd if=/dev/video0 of=/home/pi/pictures/$(date +"%Y%m%d%H%M").jpeg bs=11M count=1
-

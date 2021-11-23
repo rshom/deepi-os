@@ -5,23 +5,17 @@
 # TODO: enable interfaces
 # TODO: set GPU mem to 256MB
 
-# Set up UV4L
-curl https://www.linux-projects.org/listing/uv4l_repo/lpkey.asc | sudo apt-key add -
-sudo echo "deb https://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main" | sudo tee /etc/apt/sources.list.d/uv4l.list
-apt-get -y update
-apt-get -y install uv4l uv4l-raspicam uv4l-raspicam-extras uv4l-webrtc
-cp etc/uv4l-raspicam.conf /etc/uv4l/uv4l-raspicam.conf
-# TODO: use sed??? to just edit the right values instead
-service uv4l_raspicam restart
+# Update raspberry pi
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get autoremove -y
+sudo apt-get dist-upgrade -y	# probably unnecessary and may take a while
 
+# Install packages
+sudo apt-get install ffmpeg
 
-# Set up lighttpd
-apt-get -y install lighttpd
-lighty-enable-mod cgi
-# cp etc/lighttpd.conf /etc/lighttpd/lighttpd.conf
-cp -rf html/* /var/www/html/
-sudo service lighttpd start
-sudo service lighttpd reload
+# Set up NGINX web server
+sudo apt-get -y install nginx
 
 # Set up proftpd
 apt-get -y install proftpd-basic
@@ -29,11 +23,31 @@ apt-get -y install proftpd-basic
 # Setup NTP
 sudo apt-get -y install ntp
 
-# Include executables
-# Regular executable files
-chmod +x bin/*
-cp bin/* /usr/local/bin/
+# Set up python
+sudo apt-get install python-setuptools python-dev build-essential libpq-dev
+# Change default to python3
+# NOTE: in some future version this will not be necessary
+sudo rm /usr/bin/python
+sudo ln -s /usr/bin/python3 /usr/bin/python
+sudo mv /usr/bin/pip /usr/bin/pip2
+sudo ln -s /usr/bin/pip3 /usr/bin/pip
 
-# Common Gateway interface Executables
-chmod +x cgi-bin/*
-cp cgi-bin/* /usr/lib/cgi-bin/
+# Python packages
+pip install virtualenv
+
+# Install basic python packages
+pip install picamera
+
+# Install pirecorder
+pip install pirecorder
+
+# Install pistreamingapp
+git clone https://github.com/rshom/pistreamingapp.git ~/pistreamingapp
+pip install ws4py
+pip install gunicorn
+sudo cp pistreamingapp.service /etc/systemd/system/pistreamingapp.service
+sudo systemctl start pistreamingapp
+sudo systemctl enable pistreamingapp
+sudo cp pistreamingapp.nginx /etc/nginx/sites-available/pistreamingapp
+sudo ln -s /etc/nginx/sites-available/pistreamingapp /etc/nginx/sites-enabled/pistreamingapp
+sudo systemctl restart nginx
