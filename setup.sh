@@ -35,8 +35,8 @@ sudo python get-pip.py
 rm get-pip.py
 
 # Python packages
-sudo apt-get install python3-virtualenv
-sudo apt-get install python3-picamera
+sudo apt-get -y install python3-virtualenv
+sudo apt-get -y install python3-picamera
 
 # Install pirecorder
 # python -m pip install pirecorder
@@ -46,9 +46,7 @@ sudo apt-get install python3-picamera
 git clone https://github.com/rshom/pistreamingapp.git ~/pistreamingapp
 python -m virtualenv ~/pistreamingapp/venv
 source ~/pistreamingapp/venv/bin/activate
-pip install ws4py
-pip install gunicorn
-pip install flask
+pip install --ignore-installed ws4py flask picamera gunicorn
 deactivate
 sudo cp pistreamingapp.service /etc/systemd/system/pistreamingapp.service
 sudo systemctl start pistreamingapp
