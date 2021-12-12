@@ -39,12 +39,13 @@ sudo apt-get install python3-virtualenv
 sudo apt-get install python3-picamera
 
 # Install pirecorder
-python -m pip install pirecorder
+# python -m pip install pirecorder
+# NOTE: pirecorder relies on numpy. The RPiZ does not handle that well
 
 # Install pistreamingapp
 git clone https://github.com/rshom/pistreamingapp.git ~/pistreamingapp
-python -m virtualenv ~/pistreaming/venv
-source ~/pistreaming/venv/bin/activate
+python -m virtualenv ~/pistreamingapp/venv
+source ~/pistreamingapp/venv/bin/activate
 pip install ws4py
 pip install gunicorn
 pip install flask
