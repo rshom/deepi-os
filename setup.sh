@@ -35,13 +35,11 @@ sudo python get-pip.py
 rm get-pip.py
 
 # Python packages
-sudo pip install virtualenv
-
-# Install basic python packages
-sudo pip install picamera
+sudo apt-get install python3-virtualenv
+sudo apt-get install python3-picamera
 
 # Install pirecorder
-sudo pip install pirecorder
+python -m pip install pirecorder
 
 # Install pistreamingapp
 git clone https://github.com/rshom/pistreamingapp.git ~/pistreamingapp
