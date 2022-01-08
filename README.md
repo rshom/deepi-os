@@ -57,9 +57,14 @@ Web server files are located at `/var/www/html/`.
   
 ## Time Sync ##
   
-EEPi uses `timedatectl` to synchronize with ntp servers. The configuration
+DEEPi uses `timedatectl` to synchronize with ntp servers. The configuration
 file is located at `/etc/systemd/timesyncd.conf`.
   
 > TODO: Get time sync working. The university network may be the
 > problem, but I cannot tell.
 
+## Ref ##
+
+  * [ ] https://gitlab.com/singleballplay/picam/-/tree/master/
+  * [ ] https://www.codeinsideout.com/blog/pi/stream-picamera-mjpeg/#
+  * [ ] https://gist.github.com/kittinan/e7ecefddda5616eab2765fdb2affed1b
