@@ -59,19 +59,20 @@ class SocketStreamer(Thread):
             self.streaming = False
             conn.write(struct.pack('<L',0))
             conn.close()
+            self.sock.shutdown(1)
+            self.sock.close()
 
     def stop(self):
         self.streaming = False
 
-    def join(self):
-        self.sock.shutdown(1)
-        self.sock.close()
 
 class WebsocketStreamer(Thread): # TODO
     pass
 
+
 class ByteStreamer(Thread):     # TODO
     pass
+
 
 if __name__=="__main__":
     from time import sleep
@@ -81,6 +82,10 @@ if __name__=="__main__":
         sleep(2)
         streamer = SocketStreamer(camera)
         streamer.start()
-        sleep(10)
-        streamer.stop()
-        streamer.join()
+
+        try:
+            while True:
+                continue
+        finally:
+            streamer.stop()
+            streamer.join()
