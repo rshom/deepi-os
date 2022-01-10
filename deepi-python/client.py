@@ -46,13 +46,15 @@ class CtlSocket():
 
 if __name__=='__main__':                       
     import cv2                                 
-    feed = FeedSocket('192.168.1.169',8000)
+    feed = FeedSocket('deepi3.local',8000)
     print("Starting")
     feed.start()
     print("Ready")
     try:
         while feed.is_alive():
-            cv2.imshow("frame",cv2.imdecode(feed.frame,1))
+            img = cv2.imdecode(feed.frame,1)
+
+            cv2.imshow("frame",img)
             cv2.waitKey(1)
     finally:
         cv2.destroyAllWindows() 
