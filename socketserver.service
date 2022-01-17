@@ -1,0 +1,19 @@
+[Unit]
+Description=DEEPi Socket Server
+After=multi-user.target
+
+[Service]
+Environment="FROM=SYSTEMD"
+WorkingDirectory=/home/pi/
+Type=simple
+User=root
+ExecStart=/usr/bin/python3 /home/pi/deepi-os/bin/socketserver.py
+RemainAfterExit=no
+Restart=always
+RestartSec=2
+StartLimitBurst=999999
+StartLimitInterval=0
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

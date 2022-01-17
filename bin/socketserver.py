@@ -1,3 +1,8 @@
+#! /usr/bin/env python3
+'''Socket server creates a socket and waits for a connection
+
+Combine this with socketserver.service
+'''
 import io
 import socket
 import struct
