@@ -6,7 +6,7 @@ After=multi-user.target
 Environment="FROM=SYSTEMD"
 WorkingDirectory=/home/pi/
 Type=simple
-User=root
+User=pi
 ExecStart=/usr/bin/python3 /home/pi/deepi-os/bin/socketserver.py
 RemainAfterExit=no
 Restart=always
