@@ -42,15 +42,14 @@ if __name__=='__main__':
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.bind((addr,port))
+        print("Waiting for connection...")
         sock.listen(0)
         conn = sock.accept()[0].makefile('wb')
         output = SplitFrames(conn)
         print('Connection opened')
-        try:
-            with PiCamera(resolution=resolution,framerate=framerate) as camera:
-                sleep(2)
-                camera.start_recording(output, format='mjpeg')
-                while True:
-                    camera.wait_recording(5)
-        finally:
-            print('Connection closed')
+        with PiCamera(resolution=resolution,framerate=framerate) as camera:
+            sleep(2)
+            camera.start_recording(output, format='mjpeg')
+            while True:
+                camera.wait_recording(1)
+

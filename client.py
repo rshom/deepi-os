@@ -56,6 +56,10 @@ if __name__=='__main__':
             img = cv2.imdecode(feed.frame,1)
 
             cv2.imshow("frame",img)
-            cv2.waitKey(1)
+            if cv2.waitKey(1) == 27:
+                print("Closing")
+                break
+
     finally:
+        feed.stop()
         cv2.destroyAllWindows() 
