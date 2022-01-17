@@ -1,7 +1,6 @@
 #!/bin/bash
 # Set up script for DEEPi
 
-# TODO: check if running as root
 # TODO: enable interfaces
 # TODO: set GPU mem to 256MB
 
@@ -37,6 +36,7 @@ rm get-pip.py
 # Python packages
 sudo apt-get -y install python3-virtualenv
 sudo apt-get -y install python3-picamera
+python -m pip install picamerax
 
 # Install pirecorder
 # python -m pip install pirecorder

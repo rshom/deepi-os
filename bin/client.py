@@ -46,7 +46,7 @@ class CtlSocket():
 
 if __name__=='__main__':                       
     import cv2                                 
-    feed = FeedSocket('deepi3.local',8000)
+    feed = FeedSocket('raspberrypi.local',8000)
     print("Starting")
     feed.start()
     print("Ready")
