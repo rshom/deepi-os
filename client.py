@@ -45,38 +45,15 @@ class FeedSocket(Thread):
 
 if __name__=='__main__':
     import cv2                                 
-    feedL = FeedSocket('10.0.11.2',8000)
-    feedR = FeedSocket('10.0.12.2',8000)
+    feed = FeedSocket('raspberrypi.local',8000)
 
-    # disparity range is tuned for 'aloe' image pair
-    window_size = 3
-    min_disp = 16
-    num_disp = 112-min_disp
-    stereo = cv.StereoSGBM_create(minDisparity = min_disp,
-                                  numDisparities = num_disp,
-                                  blockSize = 16,
-                                  P1 = 8*3*window_size**2,
-                                  P2 = 32*3*window_size**2,
-                                  disp12MaxDiff = 1,
-                                  uniquenessRatio = 10,
-                                  speckleWindowSize = 100,
-                                  speckleRange = 32
-    )
-    
     print("Starting")
-    feedL.start()
-    feedR.start()
+    feed.start()
     
     print("Ready")
     try:
-        while feedL.is_alive():
-            imgL = cv2.imdecode(feedL.frame,1)
-            imgR = cv2.imdecode(feedR.frame,1)
-
-            # img = cv.StereoBM_create(numDisparities=16, blockSize=15)
-            img = stereo.compute(imgL, imgR).astype(np.float32) / 16.0
-
-            # https://github.com/opencv/opencv/blob/master/samples/python/stereo_match.py
+        while feed.is_alive():
+            img = cv2.imdecode(feed.frame,1)
 
             cv2.imshow("frame",img)
             cv2.waitKey(1)

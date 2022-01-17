@@ -46,11 +46,11 @@ if __name__=='__main__':
         conn = sock.accept()[0].makefile('wb')
         output = SplitFrames(conn)
         print('Connection opened')
-        with PiCamera(resolution=resolution,framerate=framerate) as camera:
-            sleep(2)
-            camera.start_recording(output, format='mjpeg')
-            try:
+        try:
+            with PiCamera(resolution=resolution,framerate=framerate) as camera:
+                sleep(2)
+                camera.start_recording(output, format='mjpeg')
                 while True:
                     camera.wait_recording(5)
-            finally:
-                print('Connection closed')
+        finally:
+            print('Connection closed')
